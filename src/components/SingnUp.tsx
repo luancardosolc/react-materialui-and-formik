@@ -17,7 +17,13 @@ export default function SingnUp() {
     validationSchema: Yup.object({
       firstName: Yup.string()
         .max(15, 'Must be 15 chars')
-        .required('First Name is required')
+        .required('First Name is required'),
+      lastName: Yup.string()
+        .max(15, 'Must be 20 chars')
+        .required('Last Name is required'),
+      email: Yup.string()
+        .email('Enter a valid email')
+        .required('Email is required'),
     }),
   });
 
