@@ -1,24 +1,20 @@
-import { TextField, Box, Grid } from '@mui/material'
+import { TextField, Box, Grid, Button } from '@mui/material'
 import React, { useState } from 'react'
 import { useFormik } from 'formik';
 
 export default function SingnUp() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-
   const formik = useFormik({
     initialValues: {
       firstName: '',
       lastName: '',
       email: '',
     },
-    onSubmit: () => {
-      console.log('submitting');
+    onSubmit: (values) => {
+      console.log('submitting', values);
     },
   });
 
-  // Just logging to see the values changin
+  // Just logging to see the values changing
   console.log(formik.values);
 
   return (
@@ -30,6 +26,7 @@ export default function SingnUp() {
         }}
         noValidate
         autoComplete="on"
+        onSubmit={formik.handleSubmit}
       >
         <TextField
           sx={{ backgroundColor: 'white', borderRadius: '10px' }}
@@ -58,6 +55,12 @@ export default function SingnUp() {
           value={formik.values.email}
           onChange={formik.handleChange}
         />
+        <Button
+          sx={{ color: 'white', backgroundColor: '#31315c', '&:hover': { backgroundColor: '#005eaf' } }}
+          type='submit'
+        >
+          Submit
+        </Button>
       </Box>
     </>
   )
