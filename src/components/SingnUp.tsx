@@ -1,6 +1,8 @@
 import { TextField, Box, Button } from '@mui/material'
 import React from 'react'
 import { useFormik } from 'formik';
+import * as Yup from "yup";
+import { FormatItalic } from '@mui/icons-material';
 
 export default function SingnUp() {
   const formik = useFormik({
@@ -12,10 +14,16 @@ export default function SingnUp() {
     onSubmit: (values) => {
       console.log('submitting', values);
     },
+    validationSchema: Yup.object({
+      firstName: Yup.string()
+        .max(15, 'Must be 15 chars')
+        .required('First Name is required')
+    }),
   });
 
   // Just logging to see the values changing
-  console.log(formik.values);
+  console.log('values:', formik.values);
+  console.log('errors:', formik.errors);
 
   return (
     <>
@@ -36,6 +44,8 @@ export default function SingnUp() {
           name="firstName"
           value={formik.values.firstName}
           onChange={formik.handleChange}
+          helperText={formik.errors.firstName}
+          error={Boolean(formik.errors.firstName)}
         />
         <TextField
           sx={{ backgroundColor: 'white', borderRadius: '10px' }}
@@ -45,6 +55,8 @@ export default function SingnUp() {
           name="lastName"
           value={formik.values.lastName}
           onChange={formik.handleChange}
+          helperText={formik.errors.lastName}
+          error={Boolean(formik.errors.lastName)}
         />
         <TextField
           sx={{ backgroundColor: 'white', borderRadius: '10px' }}
@@ -54,6 +66,8 @@ export default function SingnUp() {
           name="email"
           value={formik.values.email}
           onChange={formik.handleChange}
+          helperText={formik.errors.email}
+          error={Boolean(formik.errors.email)}
         />
         <Button
           sx={{ color: 'white', backgroundColor: '#31315c', '&:hover': { backgroundColor: '#005eaf' } }}
