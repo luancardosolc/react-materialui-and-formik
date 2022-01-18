@@ -30,6 +30,7 @@ export default function SingnUp() {
   // Just logging to see the values changing
   console.log('values:', formik.values);
   console.log('errors:', formik.errors);
+  console.log('touched:', formik.touched);
 
   return (
     <>
@@ -50,8 +51,9 @@ export default function SingnUp() {
           name="firstName"
           value={formik.values.firstName}
           onChange={formik.handleChange}
-          helperText={formik.errors.firstName}
-          error={Boolean(formik.errors.firstName)}
+          helperText={formik.errors.firstName && formik.touched.firstName ? formik.errors.firstName : ''}
+          error={Boolean(formik.errors.firstName && formik.touched.firstName)}
+          onBlur={formik.handleBlur}
         />
         <TextField
           sx={{ backgroundColor: 'white', borderRadius: '10px' }}
@@ -61,8 +63,9 @@ export default function SingnUp() {
           name="lastName"
           value={formik.values.lastName}
           onChange={formik.handleChange}
-          helperText={formik.errors.lastName}
-          error={Boolean(formik.errors.lastName)}
+          helperText={formik.errors.lastName && formik.touched.lastName ? formik.errors.lastName : ''}
+          error={Boolean(formik.errors.lastName && formik.touched.lastName)}
+          onBlur={formik.handleBlur}
         />
         <TextField
           sx={{ backgroundColor: 'white', borderRadius: '10px' }}
@@ -72,8 +75,9 @@ export default function SingnUp() {
           name="email"
           value={formik.values.email}
           onChange={formik.handleChange}
-          helperText={formik.errors.email}
-          error={Boolean(formik.errors.email)}
+          helperText={formik.errors.email && formik.touched.email ? formik.errors.email : ''}
+          error={Boolean(formik.errors.email && formik.touched.email)}
+          onBlur={formik.handleBlur}
         />
         <Button
           sx={{ color: 'white', backgroundColor: '#31315c', '&:hover': { backgroundColor: '#005eaf' } }}
