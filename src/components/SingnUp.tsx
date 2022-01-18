@@ -1,10 +1,22 @@
-import { TextField, Box, Button } from '@mui/material'
+import { TextField, Box, Button, Snackbar, Alert } from '@mui/material'
 import React from 'react'
 import { useFormik } from 'formik';
 import * as Yup from "yup";
-import { FormatItalic } from '@mui/icons-material';
 
 export default function SingnUp() {
+  // MODALS
+  const [open, setOpen] = React.useState(false);
+  const handleClick = () => {
+    setOpen(true);
+  };
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
+  // FORMIK
   const formik = useFormik({
     initialValues: {
       firstName: '',
@@ -13,6 +25,7 @@ export default function SingnUp() {
     },
     onSubmit: (values) => {
       console.log('submitting', values);
+      handleClick();
     },
     validationSchema: Yup.object({
       firstName: Yup.string()
@@ -27,7 +40,7 @@ export default function SingnUp() {
     }),
   });
 
-  // Just logging to see the values changing
+  // Logging to see the values changing
   console.log('values:', formik.values);
   console.log('errors:', formik.errors);
   console.log('touched:', formik.touched);
@@ -86,6 +99,11 @@ export default function SingnUp() {
           Submit
         </Button>
       </Box>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          Success!
+        </Alert>
+      </Snackbar>
     </>
   )
 }
